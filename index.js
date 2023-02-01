@@ -44,13 +44,87 @@ class LinkedList {
 
     }
 
-    //insert at index
+    //insert at anywhere in between
+    insertAt(data, index){
+        //if index is out of range
+        if(index > 0 && index > this.size) {
+            return
+        }
+
+        // if first index
+        if(index === 0) {
+            this.head = new Node(data, this.head)
+            //increase the size of the node
+            return
+        }
+
+        const node = new Node(data)
+        let current, previous
+
+        // set current to first
+        current = this.head
+        let count = 0
+
+        while(count < index) {
+            previous = current // node before the index we want to add the new node
+            count++
+            current = current.next // Node after the index we want to add the new node
+        }
+        // this where we make space for the new node and insert it
+        node.next = current
+        previous.next = node
+
+        this.size++
+    }
 
     //get at index
+    getAt(index) {
+        let current = this.head
+
+        let count = 0
+
+        while(current) {
+            if(count == index){
+                console.log(current)
+            }
+            count++
+            current = current.next
+        }
+
+        return null
+    }
 
     //remove at index
+    removeAt(index) {
+        if(index > 0 && index > this.size){
+            return
+        }
+        
+        let current = this.head
+        let previous;
+        let count = 0
+
+        // Remove first
+        if(index == 0) {
+            this.head = current.next
+        } else {
+            while(count < index) {
+                count++
+                previous = current
+                current = current.next
+            }
+
+            previous.next = current.next
+        }
+
+        this.size--
+    }
 
     //clear List
+    clearList() {
+        this.head = null
+        this.size = 0
+    }
 
     //prin list data
     prinListData(){
@@ -69,5 +143,9 @@ ll.insertFirst(100)
 ll.insertFirst(200)
 ll.insertFirst(300)
 ll.insertLast(400)
+ll.insertAt(500, 2)
+
+ll.clearList()
+
 
 ll.prinListData()
